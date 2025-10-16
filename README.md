@@ -1,8 +1,8 @@
-# Payce Finance - MUSD Edition
+# Payce Finance
 
 A dual-purse micropayment platform with MUSD borrowing integration built on Mezo blockchain. Borrow MUSD against your Bitcoin and use it for instant, off-chain micropayments with on-chain settlement.
 
-Payce's mircropayemnt infrastrutcure is perfect for any application requiring both crypto collateral and instant small payments. Imagine you’re buying 100 tiny items (like game moves, Pay-per-API call, Per-second content streaming, IoT data access, In-game or social tipping).
+Payce's micropayment infrastructure is perfect for any application requiring both crypto collateral and instant small payments. Imagine you’re buying 100 tiny items (like game moves, Pay-per-API call, Per-second content streaming, IoT data access, In-game or social tipping).
 
 
 ## What This Solves
@@ -112,10 +112,10 @@ await payceMUSD.closeTrove(true);
 ## Contract Architecture
 
 ```
-┌─────────────────────────────────────────┐
-│         PayceMUSD Contract              │
-├─────────────────────────────────────────┤
-│                                         │
+┌───────────────────────────────────────┐
+│         PayceMUSD Contract            │
+├───────────────────────────────────────┤
+│                                       │
 │  ┌───────────────────────────────┐    │
 │  │   MUSD Borrowing Module       │    │
 │  │  - openTroveAndBorrow()       │    │
@@ -124,7 +124,7 @@ await payceMUSD.closeTrove(true);
 │  │  - refinanceLoan()            │    │
 │  │  - getLoanDetails()           │    │
 │  └───────────────────────────────┘    │
-│              ↓ ↑                       │
+│              ↓ ↑                      │
 │  ┌───────────────────────────────┐    │
 │  │  Micropayment Module          │    │
 │  │  - deposit() / withdraw()     │    │
@@ -132,8 +132,8 @@ await payceMUSD.closeTrove(true);
 │  │  - redeemVoucher()            │    │
 │  │  - redeemBatch()              │    │
 │  └───────────────────────────────┘    │
-│                                         │
-└─────────────────────────────────────────┘
+│                                       │
+└───────────────────────────────────────┘
          ↓              ↓           ↓
     ┌─────────┐   ┌──────────┐   ┌──────────┐
     │  MUSD   │   │Borrower  │   │  Trove   │
@@ -171,7 +171,7 @@ Borrow 10,000 MUSD with 1 BTC:
 ### Redemption Risk
 - If you have the lowest ICR, others can redeem MUSD for your BTC
 - Your debt is cancelled, but you lose BTC exposure
-- Maintain higher ICR to avoid being targeted
+- Maintain a higher ICR to avoid being targeted
 
 ### Interest Accumulation
 - Interest accrues continuously (every second)
