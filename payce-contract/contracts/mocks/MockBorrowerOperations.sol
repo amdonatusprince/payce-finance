@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "../MockERC20.sol";
+import "../../contracts/mocks/MockERC20.sol";
 
 interface IMockTroveManager {
     function setTrove(
