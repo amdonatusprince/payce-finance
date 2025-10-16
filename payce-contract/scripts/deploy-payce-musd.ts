@@ -5,8 +5,6 @@ import { mezoTestnet as mezoChain } from '@mezo-org/chains';
 
 async function main() {
   console.log('🚀 Starting PayceMUSD deployment on Mezo Testnet...\n');
-
-  // Build viem clients directly (bypass plugin chain registry)
   const account = privateKeyToAccount(process.env.MEZO_PRIVATE_KEY as `0x${string}`);
   const transport = http('https://rpc.test.mezo.org');
   const publicClient = createPublicClient({ chain: mezoChain, transport });
