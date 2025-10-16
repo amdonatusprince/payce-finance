@@ -33,11 +33,11 @@ const config: HardhatUserConfig = {
   // @ts-ignore: etherscan config is provided by @nomicfoundation/hardhat-verify
   etherscan: {
     apiKey: {
-      "mezo-testnet": "empty",
+      "mezotestnet": "empty",
     },
     customChains: [
       {
-        network: "mezo-testnet",
+        network: "mezotestnet",
         chainId: 31611,
         urls: {
           apiURL: "https://api.explorer.test.mezo.org/api",
