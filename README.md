@@ -20,6 +20,20 @@ Mezo Passport integration provides unified Bitcoin + EVM wallet management for t
 
 ## Key Features
 
+### 🚀 Official SDK
+
+We provide a comprehensive TypeScript SDK for easy integration:
+
+- **Full Type Safety**: Complete TypeScript support with comprehensive types
+- **Error Handling**: Specific error types for better debugging
+- **Factory Methods**: Easy setup for Mezo Testnet/Mainnet
+- **Comprehensive API**: All contract functions with proper validation
+- **Testing**: Extensive test coverage with Jest
+
+```bash
+npm install @payce-finance/sdk
+```
+
 ### MUSD Borrowing Functions
 
 | Function | Purpose |
@@ -107,6 +121,33 @@ await payceMUSD.repayLoan(
 
 // 8. Close trove when done
 await payceMUSD.closeTrove(true);
+```
+
+## Project Structure
+
+```
+payce-finance/
+├── payce-contract/          # Smart contracts and deployment
+│   ├── contracts/           # Solidity contracts
+│   ├── scripts/            # Deployment and test scripts
+│   ├── test/               # Contract tests
+│   └── hardhat.config.ts   # Hardhat configuration
+├── payce-frontend/         # Next.js frontend application
+│   ├── src/
+│   │   ├── components/    # React components
+│   │   ├── hooks/         # Custom React hooks
+│   │   └── providers/     # Web3 providers
+│   └── package.json
+├── payce-sdk/             # Official TypeScript SDK
+│   ├── src/
+│   │   ├── types.ts       # TypeScript types
+│   │   ├── core.ts        # Core SDK class
+│   │   ├── borrowing.ts   # Borrowing functions
+│   │   ├── micropayments.ts # Micropayment functions
+│   │   └── index.ts       # Main exports
+│   ├── src/__tests__/     # SDK tests
+│   └── README.md          # SDK documentation
+└── README.md              # This file
 ```
 
 ## Contract Architecture
@@ -213,9 +254,51 @@ The PayceMUSD contract integrates with:
 
 All interfaces are defined in the contract for easy integration.
 
-### Contract Hooks
+### SDK Integration
 
-Create `payce-frontend/src/hooks/usePayceMUSD.ts`:
+### Using the PayceMUSD SDK
+
+For easier integration, use our official TypeScript SDK:
+
+```bash
+npm install @payce-finance/sdk
+```
+
+```typescript
+import { PayceMUSDSDK, parseEther, formatEther } from '@payce-finance/sdk';
+
+// Create SDK instance
+const sdk = PayceMUSDSDK.forMezoTestnet({
+  address: '0xYourAddress',
+  privateKey: '0xYourPrivateKey',
+});
+
+// Borrow MUSD with BTC
+const result = await sdk.openTroveAndBorrow({
+  musdAmount: parseEther('5000'),
+  btcAmount: parseEther('0.1'),
+  depositToPurse: true,
+});
+
+// Check loan status
+const loan = await sdk.getLoanDetails();
+console.log('Debt:', formatEther(loan.totalDebt));
+console.log('ICR:', Number(loan.icr), '%');
+
+// Create micropayment vouchers
+const voucher = await sdk.micropayments.createVoucher(
+  '0xMerchantAddress',
+  parseEther('100'),
+  1n
+);
+
+// Redeem voucher (merchant)
+await sdk.micropayments.redeemVoucher(voucher.voucher, voucher.signature);
+```
+
+### React Hooks (Alternative)
+
+For React applications, you can still use custom hooks:
 
 ```typescript
 import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from "wagmi";

@@ -1,0 +1,59 @@
+{
+  "name": "@payce-finance/sdk",
+  "version": "1.0.0",
+  "description": "SDK for PayceMUSD - Dual-purse micropayment platform with MUSD borrowing integration",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "example:basic": "ts-node examples/basic-usage.ts",
+    "example:advanced": "ts-node examples/advanced-usage.ts",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "payce",
+    "musd",
+    "micropayments",
+    "bitcoin",
+    "defi",
+    "mezo",
+    "sdk"
+  ],
+  "author": "Payce Finance",
+  "license": "MIT",
+  "dependencies": {
+    "viem": "^2.38.0",
+    "@mezo-org/chains": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "viem": "^2.38.0"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/payce-finance/payce-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/payce-finance/payce-sdk/issues"
+  },
+  "homepage": "https://github.com/payce-finance/payce-sdk#readme"
+}
