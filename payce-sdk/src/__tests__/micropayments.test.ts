@@ -74,12 +74,27 @@ describe('PayceMicropayments', () => {
     };
 
     mockWalletClient = {
-      signTypedData: jest.fn(),
+      signTypedData: (jest.fn() as any).mockResolvedValue('0x1234567890abcdef'),
       account: { address: account.address },
     };
 
     ((jest.requireMock('viem') as any).getContract as jest.Mock).mockReturnValue(mockContract);
     ((jest.requireMock('viem') as any).createWalletClient as jest.Mock).mockReturnValue(mockWalletClient);
+
+    // Mock public client waitForTransactionReceipt
+    const mockPublicClient = {
+      waitForTransactionReceipt: (jest.fn() as any).mockResolvedValue({
+        status: 'success',
+        transactionHash: '0x123',
+        blockNumber: 12345n,
+      }),
+    };
+    ((jest.requireMock('viem') as any).createPublicClient as jest.Mock).mockReturnValue(mockPublicClient);
+
+    micropayments = new PayceMicropayments(config, account);
+    
+    // Manually assign wallet client to the instance
+    (micropayments as any).walletClient = mockWalletClient;
   });
 
   describe('deposit', () => {

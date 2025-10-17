@@ -71,7 +71,28 @@ describe('PayceBorrowing', () => {
       },
     };
 
+    // Mock wallet client
+    const mockWalletClient = {
+      account: { address: account.address },
+    };
+
     ((jest.requireMock('viem') as any).getContract as jest.Mock).mockReturnValue(mockContract);
+    ((jest.requireMock('viem') as any).createWalletClient as jest.Mock).mockReturnValue(mockWalletClient);
+
+    // Mock public client waitForTransactionReceipt
+    const mockPublicClient = {
+      waitForTransactionReceipt: (jest.fn() as any).mockResolvedValue({
+        status: 'success',
+        transactionHash: '0x123',
+        blockNumber: 12345n,
+      }),
+    };
+    ((jest.requireMock('viem') as any).createPublicClient as jest.Mock).mockReturnValue(mockPublicClient);
+
+    borrowing = new PayceBorrowing(config, account);
+    
+    // Manually assign wallet client to the instance
+    (borrowing as any).walletClient = mockWalletClient;
   });
 
   describe('openTroveAndBorrow', () => {
