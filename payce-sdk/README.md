@@ -4,12 +4,12 @@ A comprehensive TypeScript SDK for interacting with PayceMUSD - a dual-purse mic
 
 ## Features
 
-- 🏦 **MUSD Borrowing**: Borrow MUSD against Bitcoin collateral
-- 💳 **Micropayments**: Instant off-chain payments with on-chain settlement
-- 🔐 **EIP-712 Vouchers**: Secure signed payment vouchers
-- 📊 **Real-time Data**: Live loan status, balances, and risk monitoring
-- 🛡️ **Type Safety**: Full TypeScript support with comprehensive types
-- 🧪 **Tested**: Extensive test coverage with Jest
+- **MUSD Borrowing**: Borrow MUSD against Bitcoin collateral
+- **Micropayments**: Instant off-chain payments with on-chain settlement
+- **EIP-712 Vouchers**: Secure signed payment vouchers
+- **Real-time Data**: Live loan status, balances, and risk monitoring
+- **Type Safety**: Full TypeScript support with comprehensive types
+- **Tested**: Extensive test coverage with Jest
 
 ## Installation
 
@@ -21,12 +21,17 @@ npm install @payce-finance/sdk
 
 ```typescript
 import { PayceMUSDSDK } from '@payce-finance/sdk';
+import { useWalletClient } from 'wagmi';
 
 // Create SDK instance for Mezo Testnet
 const sdk = PayceMUSDSDK.forMezoTestnet({
   address: '0xYourAddress',
   privateKey: '0xYourPrivateKey',
 });
+
+// Create SDK instance with wallet client for Mezo Testnet
+const sdk = PayceMUSDSDK.forMezoTestnetWithWallet(walletClient);
+
 
 // Check user status
 const status = await sdk.getUserStatus();
@@ -57,12 +62,21 @@ Micropayments use EIP-712 signed vouchers:
 ### SDK Initialization
 
 ```typescript
-// Using factory methods (recommended)
-const sdk = PayceMUSDSDK.forMezoTestnet(account);
-const sdk = PayceMUSDSDK.forMezoMainnet(account);
+// Using factory methods with private key (recommended for server-side)
+const sdk = PayceMUSDSDK.forMezoTestnet({
+  address: '0xYourAddress',
+  privateKey: '0xYourPrivateKey',
+});
 
-// Using constructor
-const sdk = new PayceMUSDSDK(config, account);
+// Using constructor with private key
+const sdk = new PayceMUSDSDK(config, {
+  address: '0xYourAddress',
+  privateKey: '0xYourPrivateKey',
+});
+
+// Using wallet connections (for MetaMask, WalletConnect, etc.)
+const sdk = PayceMUSDSDK.forMezoTestnetWithWallet(walletClient);
+const sdk = PayceMUSDSDK.withWalletConnection(config, walletClient);
 ```
 
 ### Borrowing Functions
@@ -101,6 +115,20 @@ const result = await sdk.closeTrove(true); // Close using purse balance
 const result = await sdk.addCollateral({
   amount: parseEther('0.01'), // 0.01 BTC
 });
+```
+
+#### Withdraw BTC Collateral
+
+```typescript
+const result = await sdk.withdrawCollateral({
+  amount: parseEther('0.01'), // 0.01 BTC
+});
+```
+
+#### Refinance Loan
+
+```typescript
+const result = await sdk.refinanceLoan();
 ```
 
 ### Micropayment Functions
@@ -155,6 +183,18 @@ const result = await sdk.micropayments.redeemBatch(
 const result = await sdk.micropayments.withdrawMerchant(parseEther('1000'));
 ```
 
+#### Release Reserved Funds
+
+```typescript
+const result = await sdk.micropayments.releaseReserved(parseEther('500'));
+```
+
+#### Withdraw User Funds
+
+```typescript
+const result = await sdk.micropayments.withdrawUser(parseEther('1000'));
+```
+
 ### Read Functions
 
 #### Get Loan Details
@@ -178,6 +218,27 @@ console.log('Reserved:', formatEther(balances.reserved));
 console.log('Available:', formatEther(balances.available));
 ```
 
+#### Check Available Balance
+
+```typescript
+const available = await sdk.micropayments.getAvailableBalance(userAddress);
+console.log('Available:', formatEther(available), 'MUSD');
+```
+
+#### Check Reserved Balance
+
+```typescript
+const reserved = await sdk.micropayments.getReservedBalance(userAddress);
+console.log('Reserved:', formatEther(reserved), 'MUSD');
+```
+
+#### Check if Voucher Redeemed
+
+```typescript
+const isRedeemed = await sdk.micropayments.isVoucherRedeemed(voucher);
+console.log('Redeemed:', isRedeemed);
+```
+
 #### Check Liquidation Risk
 
 ```typescript
@@ -191,6 +252,34 @@ console.log('Current ICR:', Number(risk.currentICR), '%');
 ```typescript
 const price = await sdk.getCurrentBTCPrice();
 console.log('BTC Price:', formatEther(price), 'USD');
+```
+
+#### Get Current Interest
+
+```typescript
+const interest = await sdk.getCurrentInterest();
+console.log('Current Interest:', formatEther(interest), 'MUSD');
+```
+
+#### Get Collateralization Ratio
+
+```typescript
+const icr = await sdk.getCollateralizationRatioPercent();
+console.log('ICR:', Number(icr), '%');
+```
+
+#### Calculate Borrowing Fee
+
+```typescript
+const fee = await sdk.calculateBorrowingFee(parseEther('1000'));
+console.log('Borrowing Fee:', formatEther(fee), 'MUSD');
+```
+
+#### Get Minimum Borrow Amount
+
+```typescript
+const minBorrow = await sdk.getMinimumBorrowAmount();
+console.log('Min Borrow:', formatEther(minBorrow), 'MUSD');
 ```
 
 ### Utility Functions
@@ -288,7 +377,8 @@ await sdk.deposit(parseEther('1000'), options);
 ### Complete Borrowing Flow
 
 ```typescript
-import { PayceMUSDSDK, parseEther, formatEther } from '@payce-finance/sdk';
+import { parseEther, formatEther } from 'viem';
+import { PayceMUSDSDK } from '@payce-finance/sdk';
 
 async function borrowingExample() {
   const sdk = PayceMUSDSDK.forMezoTestnet({
@@ -389,21 +479,6 @@ The SDK includes comprehensive tests. Run tests with:
 npm test
 ```
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
-
 ## License
 
 MIT License - see LICENSE file for details.
-
-## Support
-
-- 📖 [Documentation](https://docs.payce.finance)
-- 💬 [Discord](https://discord.gg/payce)
-- 🐛 [Issues](https://github.com/payce-finance/payce-sdk/issues)
-- 📧 [Email](mailto:support@payce.finance)

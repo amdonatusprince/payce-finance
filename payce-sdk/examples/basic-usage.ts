@@ -147,7 +147,7 @@ async function example() {
 }
 
 // Run example if this file is executed directly
-if (require.main === module) {
+if (import.meta.url === new URL(import.meta.url).pathname) {
   example().catch(console.error);
 }
 
