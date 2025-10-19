@@ -1,6 +1,6 @@
 # PayceMUSD SDK
 
-A comprehensive TypeScript SDK for interacting with PayceMUSD - a dual-purse micropayment platform with MUSD borrowing integration built on Mezo blockchain.
+SDK for interacting with PayceMUSD - a micropayment infrastructure to borrow and spend MUSD against your Bitcoin for instant, off-chain micropayments with on-chain settlement.
 
 ## Features
 
@@ -14,13 +14,13 @@ A comprehensive TypeScript SDK for interacting with PayceMUSD - a dual-purse mic
 ## Installation
 
 ```bash
-npm install @payce-finance/sdk
+npm install payce-musd-sdk
 ```
 
 ## Quick Start
 
 ```typescript
-import { PayceMUSDSDK } from '@payce-finance/sdk';
+import { PayceMUSDSDK } from 'payce-musd-sdk';
 import { useWalletClient } from 'wagmi';
 
 // Create SDK instance for Mezo Testnet
@@ -378,7 +378,7 @@ await sdk.deposit(parseEther('1000'), options);
 
 ```typescript
 import { parseEther, formatEther } from 'viem';
-import { PayceMUSDSDK } from '@payce-finance/sdk';
+import { PayceMUSDSDK } from 'payce-musd-sdk';
 
 async function borrowingExample() {
   const sdk = PayceMUSDSDK.forMezoTestnet({

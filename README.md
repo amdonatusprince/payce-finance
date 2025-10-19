@@ -1,6 +1,6 @@
 # Payce Finance
 
-A dual-purse micropayment platform with MUSD borrowing integration built on Mezo blockchain. Borrow MUSD against your Bitcoin and use it for instant, off-chain micropayments with on-chain settlement.
+Payce is a micropayment infrastructure to borrow and spend MUSD against your Bitcoin for instant, off-chain micropayments with on-chain settlement.
 
 Payce's micropayment infrastructure is perfect for any application requiring both crypto collateral and instant small payments. Imagine you’re buying 100 tiny items (like game moves, Pay-per-API call, Per-second content streaming, IoT data access, In-game or social tipping).
 

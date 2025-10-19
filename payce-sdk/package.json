@@ -1,7 +1,7 @@
 {
-  "name": "@payce-finance/sdk",
-  "version": "1.0.0",
-  "description": "SDK for PayceMUSD - Dual-purse micropayment platform with MUSD borrowing integration",
+  "name": "payce-musd-sdk",
+  "version": "1.0.1",
+  "description": "SDK for Micropayment infrastructure with MUSD borrowing integration on Mezo blockchain",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -50,10 +50,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/payce-finance/payce-sdk.git"
+    "url": "https://github.com/amdonatusprince/payce-finance/payce-sdk"
   },
   "bugs": {
-    "url": "https://github.com/payce-finance/payce-sdk/issues"
+    "url": "https://github.com/amdonatusprince/payce-finance/payce-sdk/issues"
   },
-  "homepage": "https://github.com/payce-finance/payce-sdk#readme"
+  "homepage": "https://github.com/amdonatusprince/payce-finance/payce-sdk#readme"
 }
