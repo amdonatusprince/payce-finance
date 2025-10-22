@@ -1,8 +1,8 @@
 # Payce Finance
 
-Payce is a micropayment infrastructure to borrow and spend MUSD against your Bitcoin for instant, off-chain micropayments with on-chain settlement.
+Payce is a micropayment infrastructure that allows you to borrow and spend MUSD against your Bitcoin for instant, off-chain micropayments with on-chain settlement.
 
-Payce's micropayment infrastructure is perfect for any application requiring both crypto collateral and instant small payments. Imagine you’re buying 100 tiny items (like game moves, Pay-per-API call, Per-second content streaming, IoT data access, In-game or social tipping).
+Payce's micropayment infrastructure is ideal for any consumer application that requires both crypto collateral and instant, small payments. Imagine you’re buying 100 tiny items (like game moves, Pay-per-API call, Per-second content streaming, IoT data access, In-game or social tipping).
 
 
 ## What This Solves
