@@ -7,8 +7,6 @@ Payce's micropayment infrastructure is ideal for any consumer application that r
 
 ## What This Solves
 
-Payce Finance combines three powerful features:
-
 ### 1. **Borrow MUSD Against Bitcoin** 
 Users deposit BTC and borrow MUSD stablecoins using the MUSD protocol's BorrowerOperations contract directly from the Payce interface.
 
