@@ -16,8 +16,6 @@ Use borrowed (or owned) MUSD for instant, off-chain micropayments through EIP-71
 ### 3. **Seamless Wallet Integration**
 Mezo Passport integration provides unified Bitcoin + EVM wallet management for the Mezo blockchain ecosystem.
 
-## Key Features
-
 ### 🚀 Official SDK
 
 We provide a comprehensive TypeScript SDK for easy integration:
