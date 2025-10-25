@@ -110,14 +110,3 @@ Create a `.env.local` file:
 NEXT_PUBLIC_PAYCE_CONTRACT_ADDRESS=0x...
 NEXT_PUBLIC_MOCK_ERC20_ADDRESS=0x...
 ```
-
-## Learn More
-
-- [Mezo Passport Documentation](https://docs.mezo.org)
-- [RainbowKit Documentation](https://www.rainbowkit.com)
-- [Wagmi Documentation](https://wagmi.sh)
-- [Next.js Documentation](https://nextjs.org/docs)
-
-## License
-
-MIT
