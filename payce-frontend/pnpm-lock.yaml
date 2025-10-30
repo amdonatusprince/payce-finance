@@ -47,6 +47,9 @@ importers:
       next:
         specifier: 15.5.4
         version: 15.5.4(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      payce-musd-sdk:
+        specifier: ^1.0.1
+        version: 1.0.1(viem@2.38.0(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.12))
       qrcode:
         specifier: ^1.5.4
         version: 1.5.4
@@ -5056,6 +5059,11 @@ packages:
   pathval@2.0.1:
     resolution: {integrity: sha512-//nshmD55c46FuFw26xV/xFAaB5HF9Xdap7HJBBnrKdAd6/GxDBaNA1870O79+9ueg61cZLSVc+OaFlfmObYVQ==}
     engines: {node: '>= 14.16'}
+
+  payce-musd-sdk@1.0.1:
+    resolution: {integrity: sha512-uplve5mPOC2uVZhxUoWMpkxv9pvxXTi8nEBIlBsTcmhMoklxt6f5/gH6OE4cwWGa6HLlFuj7hAK22RQMcC2uUg==}
+    peerDependencies:
+      viem: ^2.38.0
 
   pbf@3.3.0:
     resolution: {integrity: sha512-XDF38WCH3z5OV/OVa8GKUNtLAyneuzbCisx7QUCF8Q6Nutx0WnJrQe5O+kOtBlLfRNUws98Y58Lblp+NJG5T4Q==}
@@ -13094,6 +13102,11 @@ snapshots:
   pathe@2.0.3: {}
 
   pathval@2.0.1: {}
+
+  payce-musd-sdk@1.0.1(viem@2.38.0(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.12)):
+    dependencies:
+      '@mezo-org/chains': 0.0.1(viem@2.38.0(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.12))
+      viem: 2.38.0(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.12)
 
   pbf@3.3.0:
     dependencies:
