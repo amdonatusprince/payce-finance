@@ -59,6 +59,7 @@ export default function StatusPanel() {
     <div className="p-8 md:p-10 border rounded space-y-8 max-w-4xl w-full mx-auto">
       <div className="flex items-center gap-2">
         <div className="text-xs text-gray-500">Current loan, purse, and risk auto-refresh when you open this tab.</div>
+        {loading && <span className="inline-flex items-center text-xs text-gray-600"><span className="w-3 h-3 mr-2 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></span>Loading...</span>}
       </div>
 
       <div className="grid md:grid-cols-3 gap-4 text-sm">

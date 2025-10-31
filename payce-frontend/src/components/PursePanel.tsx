@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { createPublicClient, formatEther, formatUnits, parseEther } from "viem";
+import { createPublicClient, formatEther, formatUnits, parseEther, http } from "viem";
 import { usePayceSDK } from "@/hooks/usePayceSDK";
 import type { UserBalances } from "payce-musd-sdk";
 import { useWalletClient, useAccount } from "wagmi";
@@ -43,14 +43,12 @@ export default function PursePanel() {
   }
 
   async function refreshWallet() {
-    if (!sdk || !walletClient || !address) return;
+    if (!sdk || !address) return;
     setLoadingWallet(true);
     try {
       const { musdToken } = sdk.getContractAddresses();
-      const publicClient = createPublicClient({
-        chain: (walletClient as any).chain ?? null,
-        transport: (walletClient as any).transport,
-      });
+      const rpc = sdk.getNetworkInfo().rpcUrl;
+      const publicClient = createPublicClient({ transport: http(rpc) });
       const [decimals, raw] = await Promise.all([
         publicClient.readContract({ address: musdToken, abi: ERC20_ABI, functionName: "decimals" }),
         publicClient.readContract({ address: musdToken, abi: ERC20_ABI, functionName: "balanceOf", args: [address] }),
@@ -66,7 +64,7 @@ export default function PursePanel() {
     refresh();
     refreshWallet();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sdk, walletClient, address]);
+  }, [sdk, address]);
 
   async function onWithdraw() {
     if (!sdk) return;

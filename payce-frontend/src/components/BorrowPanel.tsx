@@ -49,7 +49,7 @@ export default function BorrowPanel() {
         <p className="text-sm text-gray-600">Open a trove by locking BTC as collateral and borrow MUSD directly to your purse for spending.</p>
         <ul className="text-xs text-gray-500 list-disc ml-5">
           <li>Your BTC stays as collateral; you keep upside exposure.</li>
-          <li>With "Deposit to purse" enabled, borrowed MUSD is instantly available for payments.</li>
+          <li>With &quot;Deposit to purse&quot; enabled, borrowed MUSD is instantly available for payments.</li>
           <li>Minimum borrow and fees can be viewed in the Status tab.</li>
         </ul>
       </div>
