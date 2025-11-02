@@ -12,6 +12,7 @@ import BorrowPanel from "@/components/BorrowPanel"
 import PursePanel from "@/components/PursePanel"
 import WithdrawPanel from "@/components/WithdrawPanel"
 import StatusPanel from "@/components/StatusPanel"
+import PayPanel from "@/components/PayPanel"
 
 export default function Home() {
   return (
@@ -27,9 +28,10 @@ export default function Home() {
       <main>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Tabs defaultValue="borrow" className="mt-4">
-            <TabsList className="grid w-full grid-cols-5">
+            <TabsList className="grid w-full grid-cols-6">
               <TabsTrigger value="borrow">Borrow</TabsTrigger>
               <TabsTrigger value="purse">Purse</TabsTrigger>
+              <TabsTrigger value="pay">Pay</TabsTrigger>
               <TabsTrigger value="withdraw">Withdraw</TabsTrigger>
               <TabsTrigger value="status">Status</TabsTrigger>
               {/* <TabsTrigger value="stake">Stake</TabsTrigger> */}
@@ -48,6 +50,9 @@ export default function Home() {
             </TabsContent>
             <TabsContent value="purse">
               <PursePanel />
+            </TabsContent>
+            <TabsContent value="pay">
+              <PayPanel />
             </TabsContent>
             <TabsContent value="withdraw">
               <WithdrawPanel />

@@ -5,6 +5,7 @@ import { createPublicClient, formatEther, formatUnits, parseEther, http } from "
 import { usePayceSDK } from "@/hooks/usePayceSDK";
 import type { UserBalances } from "payce-musd-sdk";
 import { useWalletClient, useAccount } from "wagmi";
+import { formatBigInt, formatNumber } from "@/lib/utils";
 
 export default function PursePanel() {
   const { sdk } = usePayceSDK();
@@ -54,7 +55,7 @@ export default function PursePanel() {
         publicClient.readContract({ address: musdToken, abi: ERC20_ABI, functionName: "balanceOf", args: [address] }),
       ]);
       const formatted = formatUnits(raw as bigint, Number(decimals as number));
-      setWalletMusd(Number(formatted).toFixed(2));
+      setWalletMusd(formatNumber(formatted, 2));
     } finally {
       setLoadingWallet(false);
     }
@@ -117,15 +118,15 @@ export default function PursePanel() {
         <div className="grid grid-cols-3 gap-4 text-sm">
           <div>
             <div className="text-gray-500">Total</div>
-            <div className="font-medium">{Number(formatEther(purse.total)).toFixed(2)} MUSD</div>
+            <div className="font-medium">{formatBigInt(purse.total, 2)} MUSD</div>
           </div>
           <div>
             <div className="text-gray-500">Reserved</div>
-            <div className="font-medium">{Number(formatEther(purse.reserved)).toFixed(2)} MUSD</div>
+            <div className="font-medium">{formatBigInt(purse.reserved, 2)} MUSD</div>
           </div>
           <div>
             <div className="text-gray-500">Available</div>
-            <div className="font-medium">{Number(formatEther(purse.available)).toFixed(2)} MUSD</div>
+            <div className="font-medium">{formatBigInt(purse.available, 2)} MUSD</div>
           </div>
         </div>
       )}

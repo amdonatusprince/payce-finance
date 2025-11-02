@@ -5,6 +5,7 @@ import { parseEther, formatEther } from "viem";
 // import type { Address } from "viem";
 import { usePayceSDK } from "@/hooks/usePayceSDK";
 import type { LoanDetails } from "payce-musd-sdk";
+import { formatBigInt, formatPercent } from "@/lib/utils";
 
 function Toast({ message, onClose }: { message: string; onClose: () => void }) {
   if (!message) return null;
@@ -36,7 +37,7 @@ export default function ContractConsole() {
 
   const disabled = !sdk;
 
-  const fmt2 = (v: bigint) => Number(formatEther(v)).toFixed(2);
+  const fmt2 = (v: bigint) => formatBigInt(v, 2);
 
   async function loadLoan() {
     if (!sdk) return;
@@ -54,28 +55,28 @@ export default function ContractConsole() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sdk]);
 
-  async function handleRepay() {
-    if (!sdk) return;
-    setStatus("Sending repayLoan...");
-    setToast("");
-    setLoadingRepay(true);
-    try {
-      const res = await sdk.repayLoan({
-        amount: parseEther(repayAmount || "0"),
-        fromPurse: true,
-      });
-      if (res.success) {
-        setToast(`Repay successful. <a class='underline' href='https://explorer.test.mezo.org/tx/${res.hash}' target='_blank' rel='noreferrer'>View transaction</a>`);
-        setRepayAmount("");
-        await loadLoan();
-      }
-      setStatus(res.success ? `Success: ${res.hash}` : `Failed: ${res.error}`);
-    } catch (e: unknown) {
-      setStatus(`Error: ${e instanceof Error ? e.message : String(e)}`);
-    } finally {
-      setLoadingRepay(false);
-    }
-  }
+  // async function handleRepay() {
+  //   if (!sdk) return;
+  //   setStatus("Sending repayLoan...");
+  //   setToast("");
+  //   setLoadingRepay(true);
+  //   try {
+  //     const res = await sdk.repayLoan({
+  //       amount: parseEther(repayAmount || "0"),
+  //       fromPurse: true,
+  //     });
+  //     if (res.success) {
+  //       setToast(`Repay successful. <a class='underline' href='https://explorer.test.mezo.org/tx/${res.hash}' target='_blank' rel='noreferrer'>View transaction</a>`);
+  //       setRepayAmount("");
+  //       await loadLoan();
+  //     }
+  //     setStatus(res.success ? `Success: ${res.hash}` : `Failed: ${res.error}`);
+  //   } catch (e: unknown) {
+  //     setStatus(`Error: ${e instanceof Error ? e.message : String(e)}`);
+  //   } finally {
+  //     setLoadingRepay(false);
+  //   }
+  // }
 
   async function handleAddCollateral() {
     if (!sdk) return;
@@ -158,7 +159,7 @@ export default function ContractConsole() {
 
       {/* Borrow moved to Borrow tab */}
 
-      <section className="p-4 border rounded">
+      {/* <section className="p-4 border rounded">
         <div className="font-semibold mb-2">Repay Loan (from purse)</div>
         <p className="text-xs text-gray-600 mb-2">Use MUSD from your purse to reduce outstanding debt.</p>
         <div className="text-xs text-gray-700 mb-3">
@@ -177,7 +178,7 @@ export default function ContractConsole() {
           <input className="border px-3 py-2 rounded w-full" placeholder="Amount (MUSD)" value={repayAmount} onChange={e=>setRepayAmount(e.target.value)} />
           <button disabled={disabled || loadingRepay} onClick={handleRepay} className="bg-black text-white px-3 py-2 rounded w-full">{loadingRepay ? "Repaying..." : "Repay"}</button>
         </div>
-      </section>
+      </section> */}
 
       <section className="p-4 border rounded">
         <div className="font-semibold mb-2">Add Collateral</div>
@@ -188,7 +189,7 @@ export default function ContractConsole() {
           ) : loan ? (
             <div className="grid grid-cols-2 gap-2">
               <div>Current Collateral: <span className="font-medium">{fmt2(loan.collateral)} BTC</span></div>
-              <div>ICR: <span className="font-medium">{Number(loan.icr).toFixed(2)}%</span></div>
+              <div>ICR: <span className="font-medium">{formatPercent(loan.icr, 2)}%</span></div>
             </div>
           ) : (
             <span className="text-gray-500">No collateral data</span>

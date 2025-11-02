@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { formatEther, parseEther } from "viem";
 import { usePayceSDK } from "@/hooks/usePayceSDK";
+import { formatBigInt } from "@/lib/utils";
 
 function Toast({ message, onClose }: { message: string; onClose: () => void }) {
   if (!message) return null;
@@ -30,7 +31,7 @@ export default function WithdrawPanel() {
     setLoadingPurse(true);
     try {
       const status = await sdk.getUserStatus();
-      setPurseAvailable(Number(formatEther(status.purse.available)).toFixed(2));
+      setPurseAvailable(formatBigInt(status.purse.available, 2));
     } finally {
       setLoadingPurse(false);
     }

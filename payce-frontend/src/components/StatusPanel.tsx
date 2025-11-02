@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { formatEther, parseEther } from "viem";
 import { usePayceSDK } from "@/hooks/usePayceSDK";
 import type { LoanDetails, UserBalances } from "payce-musd-sdk";
+import { formatBigInt, formatPercent, formatNumber } from "@/lib/utils";
 
 export default function StatusPanel() {
   const { sdk } = usePayceSDK();
@@ -14,7 +15,7 @@ export default function StatusPanel() {
   const [feeInput] = useState("1000");
   const [loading, setLoading] = useState(false);
 
-  const fmt2 = (v: bigint) => Number(formatEther(v)).toFixed(2);
+  const fmt2 = (v: bigint) => formatBigInt(v, 2);
 
   async function refresh() {
     if (!sdk) return;
@@ -72,7 +73,7 @@ export default function StatusPanel() {
               <div>Total Debt: {fmt2(loan.totalDebt)} MUSD</div>
               <div>Collateral: {fmt2(loan.collateral)} BTC</div>
               {/* <div>ICR: {Number(loan.icr).toFixed(2)}%</div> */}
-              <div>Rate: {(loan.interestRate / 100).toFixed(2)}%</div>
+              <div>Rate: {formatNumber(loan.interestRate / 100, 2)}%</div>
               <div>Active: {loan.isActive ? "Yes" : "No"}</div>
             </div>
           ) : (
@@ -84,9 +85,9 @@ export default function StatusPanel() {
           <div className="font-semibold mb-2">Purse</div>
           {purse ? (
             <div className="space-y-1">
-              <div>Total: {Number(formatEther(purse.total)).toFixed(2)} MUSD</div>
-              <div>Reserved: {Number(formatEther(purse.reserved)).toFixed(2)} MUSD</div>
-              <div>Available: {Number(formatEther(purse.available)).toFixed(2)} MUSD</div>
+              <div>Total: {formatBigInt(purse.total, 2)} MUSD</div>
+              <div>Reserved: {formatBigInt(purse.reserved, 2)} MUSD</div>
+              <div>Available: {formatBigInt(purse.available, 2)} MUSD</div>
             </div>
           ) : (
             <div className="text-gray-500">No data yet</div>
@@ -98,7 +99,7 @@ export default function StatusPanel() {
           {risk ? (
             <div className="space-y-1">
               <div>At Risk: {risk.atRisk ? "Yes" : "No"}</div>
-              <div>Current ICR: {Number(risk.currentICR).toFixed(2)}%</div>
+              <div>Current ICR: {formatPercent(risk.currentICR, 2)}%</div>
             </div>
           ) : (
             <div className="text-gray-500">No data yet</div>
@@ -136,7 +137,7 @@ export default function StatusPanel() {
                 </tr>
                 <tr>
                   <td className="py-2 pr-4">ICR%</td>
-                  <td className="py-2">{Number(helpers.icr).toFixed(2)}%</td>
+                  <td className="py-2">{formatPercent(helpers.icr, 2)}%</td>
                 </tr>
               </tbody>
             </table>
